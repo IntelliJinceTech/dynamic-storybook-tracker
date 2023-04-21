@@ -1,24 +1,24 @@
 const mongoose = require('mongoose')
 
-const UserSchema = new mongoose.Schema({
-    googleId: {
+const StorySchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    body: {
         type: String,
         required: true,
     },
-    displayName: {
+    status: {
         type: String,
-        required: true,
+        default: 'public',
+        enum: ['public', 'private'],
     },
-    firstName: {
-        type: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
-    },
-    lastName: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
     },
     createdAt: {
         type: Date,
@@ -26,5 +26,5 @@ const UserSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('Story', StorySchema)
 // this will create a collection name of the pluralized first argument - so 'Users', a third argument would specify collection name
